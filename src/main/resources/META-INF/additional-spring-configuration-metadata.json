@@ -1,0 +1,14 @@
+{
+    "properties": [
+        {
+            "name": "openai.base-url",
+            "type": "java.lang.String",
+            "description": "The base URL for OpenAI."
+        },
+        {
+            "name": "openai.api-key",
+            "type": "java.lang.String",
+            "description": "The API key for OpenAI."
+        }
+    ]
+}
