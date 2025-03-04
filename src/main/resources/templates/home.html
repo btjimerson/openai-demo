@@ -144,8 +144,7 @@
                 <div class="row" th:if="${content}">
                     <div class="col">
                         <img th:src="@{/images/ai-demo.png}" width="40">&nbsp;<span th:text="${chatPrompt}"></span>
-                        <div class="highlight">
-                            <span th:text="${content}"></span>
+                        <div class="highlight" id="content">
                         </div>
                     </div>
                 </div>
@@ -159,12 +158,15 @@
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
     <script th:src="@{/js/validate-forms.js}"></script>
     <script th:src="@{/js/application.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
         function setPrompt(prompt) {
             document.getElementById("prompt").value = prompt;
         }
     </script>
-
+    <script th:inline="javascript">
+        document.getElementById('content').innerHTML = marked.parse([[${ content }]]);
+    </script>
 </body>
 
 </html>
