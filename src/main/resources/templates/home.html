@@ -87,7 +87,10 @@
                 <div class="fs-4">How can I help you?</div>
                 <div class="row pt-5">
                     <div class="col-md-12">
-                        <form method="post" th:action="@{/chat}" th:object="${chat}" id="chatForm" name="chatForm">
+                        <div class="d-flex justify-content-center">
+                            <div class="spinner-border text-primary" style="display: none;" aria-hidden="true" id="spinner"></div>
+                        </div>
+                        <form method="post" th:action="@{/chat}" th:object="${chat}" id="chatForm" name="chatForm" onsubmit="return showSpinner()">
                             <div class="row">
                                 <div class="col-8">
                                     <textarea class="form-control" id="prompt" name="prompt" rows="8"
@@ -96,10 +99,10 @@
                                 <div class="col-4">
                                     <div class="row">
                                         <div class="col-4">
-                                            <button type="submit" class="btn btn-primary btn-block"
+                                            <button type="submit" id="submitChatButton" class="btn btn-primary btn-block"
                                                 data-bs-toggle="tooltip" data-bs-title="Submit Chat"
                                                 data-bs-placement="bottom">
-                                                <i class="bi-arrow-up-circle"
+                                                <i class="bi-arrow-up-circle" id="submitIcon"
                                                     style="font-size: 1.5rem; color: white;"></i>
                                             </button>
                                         </div>
@@ -112,7 +115,7 @@
                                             <span data-bs-toggle="modal" data-bs-target="#historyModal">
                                                 <button type="button" class="btn btn-dark btn-block"
                                                     data-bs-toggle="tooltip" data-bs-title="View History"
-                                                    data-bs-placement="bottom">
+                                                    data-bs-placement="bottom" id="viewHistoryButton">
                                                     <i class="bi-clock-history"
                                                         style="font-size: 1.5rem; color: white;"></i>
                                                 </button>
@@ -127,7 +130,7 @@
                                             <span data-bs-toggle="modal" data-bs-target="#apiModal">
                                                 <button type="button" class="btn btn-secondary btn-block"
                                                     data-bs-toggle="tooltip" data-bs-title="Update OpenAI API"
-                                                    data-bs-placement="bottom">
+                                                    data-bs-placement="bottom" id="updateApiButton">
                                                     <i class="bi-card-list"
                                                         style="font-size: 1.5rem; color: white;"></i>
                                                 </button>
@@ -162,6 +165,13 @@
     <script>
         function setPrompt(prompt) {
             document.getElementById("prompt").value = prompt;
+        }
+        function showSpinner() {
+            document.getElementById("spinner").style.display = "";
+            document.getElementById("submitChatButton").disabled = true;
+            document.getElementById("viewHistoryButton").disabled = true;
+            document.getElementById("updateApiButton").disabled = true
+            return true;
         }
     </script>
     <script th:inline="javascript">
